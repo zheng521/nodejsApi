@@ -1,7 +1,7 @@
 module.exports = function (app) {
   app.get('/', function (req, res) {
-    // res.redirect('/posts')
-    res.render({index: '234'})
+    res.redirect('/posts')
+    // res.render({index: '234'})
   })
   app.use('/signup', require('./signup'))
   app.use('/signin', require('./signin'))

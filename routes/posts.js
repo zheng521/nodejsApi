@@ -6,7 +6,6 @@ const checkLogin = require('../middlewares/check').checkLogin
 
 router.get('/', function (req, res, next) {
   const author = req.query.author
-  //
   PostModel.getPosts(author)
     .then(function (posts) {
       res.render('posts', {
@@ -15,8 +14,6 @@ router.get('/', function (req, res, next) {
 
     })
     .catch(next)
-     console.log(res);
-     this.body = '{"version": "0.0.1"}'
   // res.render('123')
 })
 
