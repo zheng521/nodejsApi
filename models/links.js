@@ -1,11 +1,10 @@
 const marked = require('marked')
-const Link = require('../lib/mongo').Link
+const Links = require('../lib/mongo').Links
 
 module.exports = {
   getLinks: function getLinks () {
-    return Link
+    return Links
       .find()
-      .sort({ _id: -1 })
       .exec()
   }
 }
