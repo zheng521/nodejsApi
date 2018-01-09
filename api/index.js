@@ -4,20 +4,16 @@ const NewsModel = require('../models/news')
 
 module.exports = function (app) {
   app.get('/api/entrance', function(req, res, next) {
-    // const author = req.query.author
-    // PostModel.getPosts(author)
-    //   .then(function (posts) {
-    //     res.json(posts)
-    //   })
-    let links, recommended;
-    // LinkModel.getLinks().then((links)=>{
-    //   links = links
-    //   res.json({category:'advertisements',items: links})
-    // })
-    NewsModel.getNews().then((news) => {
-      res.json({category:'advertisements',items: news})
+    Promise.all([
+        LinkModel.getLinks(),
+        NewsModel.getNews()
+    ]).then((data) => {
+        res.json({
+            code: 200,
+            data:[{category:'suggests', items: data[1]},{category:'advertisements',items: data[0]}],
+            msg:''
+        })
     })
-      .catch(next)
-    // res.json({12:123})
+    .catch(next)
   })
 }
