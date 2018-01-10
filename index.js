@@ -9,9 +9,15 @@ const api = require('./api')
 const pkg = require('./package')
 const winston = require('winston')
 const expressWinston = require('express-winston')
+const bodyParser = require('body-parser');
 // const cors = require('cors')
 
 const app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

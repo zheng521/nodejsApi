@@ -28,6 +28,7 @@
     "winston": "^2.4.0"
   },
   "devDependencies": {
+    "body-parser": "^1.18.2",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
