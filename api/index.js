@@ -2,6 +2,7 @@ const PostModel = require('../models/posts')
 const LinkModel = require('../models/links')
 const NewsModel = require('../models/news')
 const UserModel = require('../models/users')
+const sha1 = require('sha1')
 
 module.exports = function (app) {
   app.get('/api/entrance', function(req, res, next) {
@@ -28,7 +29,7 @@ module.exports = function (app) {
             msg:'用户不存在'
           })
         }
-        if(password !== user.password) {
+        if(sha1(password) !== user.password) {
           res.json({
             code: 401,
             data:'',
@@ -37,7 +38,7 @@ module.exports = function (app) {
       } else {
           res.json({
             code: 200,
-            data:'',
+            data:{accessToken: },
             msg:'登录成功'
           })
         }
@@ -47,6 +48,13 @@ module.exports = function (app) {
   app.post('/api/mr_signup', function(req,res,next) {
     let username = req.body.username
     let password = req.body.password
-
+    password = sha1(password)
+    UserModel.create({name: username, password: password}).then((result) => {
+      res.json({
+        code: 200,
+        data:'',
+        msg:'注册成功'
+      })
+    })
   })
 }
