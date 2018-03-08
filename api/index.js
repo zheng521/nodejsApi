@@ -3,6 +3,7 @@ const LinkModel = require('../models/links')
 const NewsModel = require('../models/news')
 const UserModel = require('../models/users')
 const sha1 = require('sha1')
+const jwt = require('jsonwebtoken')
 
 module.exports = function (app) {
   app.get('/api/entrance', function(req, res, next) {
@@ -36,10 +37,12 @@ module.exports = function (app) {
             msg:'密码错误'
           })
       } else {
+          let token = jwt.sign(user, app.get('superSecret'),{})
           res.json({
             code: 200,
-            data:{accessToken: },
-            msg:'登录成功'
+            // data:{accessToken: },
+            msg:'登录成功',
+            token: token
           })
         }
       })
@@ -49,11 +52,13 @@ module.exports = function (app) {
     let username = req.body.username
     let password = req.body.password
     password = sha1(password)
+    let token = jwt.sign(user, app.get('superSecret'),{})
     UserModel.create({name: username, password: password}).then((result) => {
       res.json({
         code: 200,
         data:'',
-        msg:'注册成功'
+        msg:'注册成功',
+        token: token
       })
     })
   })

@@ -14,6 +14,7 @@ const bodyParser = require('body-parser');
 
 const app = express()
 
+app.set('superSecret', config.secret);
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
